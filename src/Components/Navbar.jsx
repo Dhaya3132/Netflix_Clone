@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import logo from '../assets/logo.png';
 import Search from '../assets/search_icon.svg';
 import bell_icon from '../assets/bell_icon.svg';
@@ -7,8 +7,20 @@ import carlet_icon from '../assets/caret_icon.svg';
 
 
 const Navbar = () => {
+  const navRef = useRef();
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY >= 80) {
+        navRef.current.classList.add('bg-gradient-180-black');
+      }
+      else {
+        navRef.current.classList.remove('bg-gradient-180-black');
+      }
+    })
+  }, [])
+
   return (
-    <nav className='navbar flex w-full py-8 px-7 justify-between items-center fixed text-base text-Navbar_Color bg-gradient-180-black z-10 cursor-pointer'>
+    <nav ref={navRef} className='navbar flex w-full py-8 px-7 bg-transparent justify-between items-center fixed text-base text-Navbar_Color z-10 cursor-pointer'>
       <div className="navbar-left flex items-center gap-10">
         <img src={logo} alt="logo" className='w-36 h-9' />
         <ul className='flex items-center gap-5 text-base font-light'>
